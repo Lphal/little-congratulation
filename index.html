@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Congratulations</title>
+  <script src="https://unpkg.com/canvas-confetti@1.6.0/dist/confetti.browser.js"></script>
+  <script src="./helper.js"></script>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .box > p {
+      font-size: 24px;
+      font-weight: bold;
+      margin: .5em;
+    }
+    .box > p:nth-child(1) {
+      font-size: 36px;
+      text-shadow: 0 0 10px #8C4646, 
+        0 0 20px #fff700, 0 0 30px #fff, 
+        -20px 0 40px #fff700, 20px 0 40px #fff700, 
+        -30px 0 70px #fff700, 30px 0 70px #fff700, 
+        0 0 80px #fff700, 0 0 100px #fff700
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <p>菌仔</p>
+    <p>祝你生日快乐</p>
+  </div>
+  <script>
+    
+    const colors1 = [
+      '#5D8C7B',
+      '#F2D091',
+      '#F2A679',
+      '#D9695F',
+      '#8C4646',
+    ]
+    const colors2 = [
+      '#26ccff',
+      '#a25afd',
+      '#ff5e7e',
+      '#88ff5a',
+      '#fcff42',
+      '#ffa62d',
+      '#ff36ff'
+    ]
+
+    parseInfo()
+
+    document.body.onclick = function () {
+      congrats()
+    }
+
+    function parseInfo() {
+      const url = new URL(window.location.href)
+      const info = url.searchParams.get('i')
+      try {
+        if (!info) {
+          throw new Error('没有祝福语')
+        }
+        const list = getCongList(info)
+        console.log(list)
+        document.title = '🎉' + list[0]
+        const htmls = list.map((item, idx) => `<p style="color: ${colors1[(idx + 1) % colors1.length]}">${item}</p>`)
+        document.querySelector('.box').innerHTML = htmls.join('')
+
+        congrats()
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    function congrats() {
+      const defaults = {
+        colors: [...colors1, ...colors2],
+        shapes: ['square'],
+        ticks: 500,
+      }
+      confetti({
+        ...defaults,
+        particleCount: 80,
+        spread: 100,
+        origin: { y: 0 },
+      })
+      setTimeout(() => {
+        confetti({
+          ...defaults,
+          particleCount: 50,
+          angle: 60,
+          spread: 80,
+          origin: { x: 0 },
+        })
+      }, 250)
+      setTimeout(() => {
+        confetti({
+          ...defaults,
+          particleCount: 50,
+          angle: 120,
+          spread: 80,
+          origin: { x: 1 },
+        })
+      }, 400)
+    }
+  </script>
+</body>
+
+</html>

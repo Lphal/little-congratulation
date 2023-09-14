@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>制作&分享你的祝福</title>
+    <script src="./helper.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        h1 {
+            color: #F2A679;
+        }
+        textarea{
+            width: 300px;
+            height: 300px;
+            resize: none;
+            font-size: 16px;
+        }
+        button {
+            width: 80px;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            background-color: transparent;
+            color: #fff;
+            border: 3px solid #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .share{
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>生成祝福语</h1>
+        <textarea id="text" placeholder="输入你的祝福词，每行一句"></textarea> 
+        <div class="share">
+            <button id="shareBtn">分享</button>
+        </div>
+    </div>
+    <script>
+        const shareBtn = document.querySelector('#shareBtn')
+        shareBtn.onclick = function() {
+            const text = document.querySelector('#text').value
+            if (!text) {
+                alert('请输入祝福语')
+            }
+            const arr = text.split('\n')
+            const param = makeCongParam(arr)
+            const url = window.origin + '?i=' + param
+            console.log(url)
+            copyTextToClipboard(url)
+        }
+    </script>
+</body>
+</html>
