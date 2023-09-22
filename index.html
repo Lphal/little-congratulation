@@ -52,20 +52,18 @@
     function parseInfo() {
       const url = new URL(window.location.href)
       const info = url.searchParams.get('i')
-      try {
-        if (!info) {
-          throw new Error('没有祝福语')
-        }
-        const list = getCongList(info)
-        console.log(list)
-        document.title = '🎉' + list[0]
-        const htmls = list.map((item, idx) => `<p style="color: ${colors1[(idx + 1) % colors1.length]}">${item}</p>`)
-        document.querySelector('.box').innerHTML = htmls.join('')
-
-        congrats()
-      } catch (error) {
-        console.error(error)
+      let list;
+      if (!info) {
+        list.push('Congratulations')
+      } else {
+        list = getCongList(info)
       }
+      console.log(list)
+      document.title = '🎉' + list[0]
+      const htmls = list.map((item, idx) => `<p style="color: ${colors1[(idx + 1) % colors1.length]}">${item}</p>`)
+      document.querySelector('.box').innerHTML = htmls.join('')
+
+      congrats()
     }
 
     function congrats() {
