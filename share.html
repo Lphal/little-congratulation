@@ -49,8 +49,7 @@
             }
             const arr = text.split('\n')
             const param = makeCongParam(arr)
-            const subPath = location.pathname.split('/')[1]
-            const url = location.origin + '/' + subPath + '?i=' + param
+            const url = location.origin + '/?i=' + param
             console.log(url)
             copyTextToClipboard(url)
         }
