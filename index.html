@@ -54,7 +54,7 @@
       const info = url.searchParams.get('i')
       let list;
       if (!info) {
-        list.push('Congratulations')
+        list = ['Congratulations']
       } else {
         list = getCongList(info)
       }
